@@ -14,10 +14,10 @@
         </div>
     </div>
 
-    <p-table [value]="recepcionistas" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="recepcionistas" [tableStyle]="{ 'min-width': '50rem' }" 
+        [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]">
         <ng-template #header>
             <tr>
-                <th>Código</th>
                 <th>Nome</th>
                 <th>Status</th>
                 <th>
@@ -27,10 +27,9 @@
         </ng-template>
         <ng-template #body let-recepcionistas>
             <tr>
-                <td>{{ recepcionistas.id }}</td>
                 <td>{{ recepcionistas.nome }}</td>
                 <td>
-                    <app-resgistro-status-tag [status]="recepcionistas.status"></app-resgistro-status-tag>
+                    <app-registro-status-tag [status]="recepcionistas.status"></app-registro-status-tag>
                 </td>
                 <td>
                     <div class="flex gap-1 justify-end">
@@ -40,7 +39,7 @@
                 </td>
             </tr>
         </ng-template>
-    </p-table>''
+    </p-table>
 </div>
 
 <p-dialog header="Cadastro de Recepcionistas" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
