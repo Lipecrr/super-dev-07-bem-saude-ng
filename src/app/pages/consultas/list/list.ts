@@ -13,7 +13,6 @@ import { TextareaModule } from 'primeng/textarea';
 import { ConsultaResponseModel } from '../../../models/consulta.model';
 import { PacienteResponseModel } from '../../../models/paciente.model';
 import { PacienteService } from '../../../services/paciente.service';
-import { ProfissionalResponseModel } from '../../../models/profissional.model';
 
 
 
@@ -51,26 +50,14 @@ export class List {
   });
 
 
-  pacientes: PacienteResponseModel[] = this.pacienteService.getPacientes();
-
-  profissionais: ProfissionalResponseModel[] = [
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e501', nome: 'Dra. Ana Souza' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e502', nome: 'Dr. Carlos Lima' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e503', nome: 'Dra. Juliana Martins' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e504', nome: 'Dr. Bruno Rocha' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e505', nome: 'Dra. Mariana Pacheco' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e506', nome: 'Dr. Felipe Azevedo' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e507', nome: 'Dra. Renata Guimarães' },
-    { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e508', nome: 'Dr. Lucas Farias' }
-  ]
-profissionaisFiltro: ProfissionalResponseModel[] = [
-  { id: 'todos', nome: 'Todos' },
-  ...this.profissionais
-];
-profissionalSelecionado: ProfissionalResponseModel =
-  this.profissionaisFiltro[0];
-
   consultas: ConsultaResponseModel[] = [
+    {
+      paciente: 'Todos',
+      profissional: 'Todos',
+      status: '',
+      data: '',
+      horario: ''
+    },
     {
       paciente: 'Maria Silva',
       profissional: 'Dra. Ana Souza',
@@ -156,6 +143,9 @@ profissionalSelecionado: ProfissionalResponseModel =
       horario: '08:00'
     }
   ];
+
+  pacienteSelecionado: ConsultaResponseModel = this.consultas[0];
+  profissionalSelecionado: ConsultaResponseModel = this.consultas[0];
 
   showDialog(): void {
     this.visible = true;
