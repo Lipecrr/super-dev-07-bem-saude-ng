@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -12,7 +12,7 @@ import { ResgistroStatusTag } from '../../../core/components/resgistro-status-ta
 
 @Component({
   selector: 'app-list',
-  imports: [ButtonModule, InputTextModule, SelectModule, FormsModule, TableModule, ResgistroStatusTag,AutoFocusModule,DialogModule],
+  imports: [ButtonModule, InputTextModule, SelectModule, FormsModule, TableModule, ResgistroStatusTag,AutoFocusModule,DialogModule, ReactiveFormsModule],
   templateUrl: './list.html',
 })
 export class List {
@@ -20,6 +20,11 @@ export class List {
   filtroSelecionado: String = "Todos";
   pesquisa: String = "";
   visible = false;
+  private readonly formBuilder = inject(FormBuilder);
+
+  recepcionistaForm = this.formBuilder.group({
+    nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]]
+  })
 
 
   recepcionistas: RecepcionistaResponseModel[] = [
@@ -54,5 +59,13 @@ export class List {
     this.visible = true;
   }
 
+  cancelar(){
+    this.visible = false;
+    this.recepcionistaForm.reset();
+  }
+
+  salvar(){
+
+  }
 }
 

@@ -1,0 +1,123 @@
+<div class="space-y-6">
+    <div class="flex justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Consultas</h1>
+            <p class="text-gray-600">Gerenciamento de agendamentos</p>
+        </div>
+
+        <p-button label="Novo Paciente" icon="fa fa-plus" (onClick)="showDialog()"></p-button>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-4">
+        <div class="flex flex-row gap-4">
+            <input pInputText placeholder="Busca" fluid [(ngModel)]="pesquisa" [pAutoFocus]="true">
+
+            <p-select [options]="filtros" [(ngModel)]="filtroSelecionado"></p-select>
+        </div>
+    </div>
+
+    <p-table [value]="consultas" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template #header>
+            <tr>
+                <th>Horário</th>
+                <th>Paciente</th>
+                <th>Profissional</th>
+                <th>Status</th>
+                <th>
+                    <div class="text-right">Ações</div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-consulta>
+            <tr>
+                <td>{{ consulta.horario }}</td>
+                <td>{{ consulta.paciente }}</td>
+                <td>{{ consulta.profissional }}</td>
+                <td>
+                    <app-registro-status-tag [status]="consulta.status" />
+                </td>
+                <td>
+                    <div class="flex gap-1 justify-end">
+                        <p-button icon="fa-regular fa-pen-to-square" variant="text" severity="info" />
+                        <p-button icon="fa fa-trash" variant="text" severity="danger" />
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Nova Consulta" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="consultaForm">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex flex-col md:col-span-2">
+                <label for="paciente" class="font-semibold w-24">Paciente <span
+                        class="font-bold text-red-700">*</span></label>
+                <p-select [options]="pacientes" optionLabel="nome" optionValue="id" formControlName="paciente"
+                    placeholder="Selecione o paciente">
+                </p-select>
+
+                @if (consultaForm.get("paciente")?.touched &&
+                consultaForm.get("paciente")?.hasError("required")) {
+                <small class="text-red-600">
+                    Paciente é obrigatório
+                </small>
+                }
+            </div>
+
+            <div class="flex flex-col md:col-span-2">
+                <label for="profissional" class="font-semibold w-24">Profissional <span
+                        class="font-bold text-red-700">*</span></label>
+                <p-select [options]="profissionais" optionLabel="nome" formControlName="profissional"
+                    placeholder="Selecione o profissional">
+                </p-select>
+                @if (consultaForm.get("profissional")?.touched &&
+                consultaForm.get("profissional")?.hasError("required")) {
+                <small class="text-red-600">
+                    Profissional é obrigatório
+                </small>
+                }
+            </div>
+
+            <div>
+                <label for="data" class="font-semibold w-24">Data de Nascimento <span
+                        class="font-bold text-red-700">*</span></label>
+                <p-date-picker fluid id="data" formControlName="data" />
+                @if (consultaForm.get("data")?.touched &&
+                consultaForm.get("data")?.hasError("required")) {
+                <small class="text-red-600">
+                    Data é obrigatório
+                </small>
+                }
+            </div>
+
+            <div>
+                <label for="horario" class="font-semibold w-24">
+                    Horário <span class="font-bold text-red-700">*</span>
+                </label>
+                <p-datePicker fluid [timeOnly]="true" [showTime]="true" [hourFormat]="'24'" inputId="temponly"
+                    formControlName="horario">
+                </p-datePicker>
+
+
+                @if (consultaForm.get("horario")?.touched &&
+                consultaForm.get("horario")?.hasError("required")) {
+                <small class="text-red-600">
+                    Horário é obrigatório
+                </small>
+                }
+            </div>
+
+            <div class="md:col-span-2">
+                <label for="observacao" class="font-semibold w-24">Observações</label>
+                <textarea rows="5" cols="30" pTextarea fluid formControlName="observacoes" id="observacoes"></textarea>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2">
+            <p-button label="Cancelar" severity="secondary" (click)="cancelar()" />
+            <p-button label="Salvar" icon="fa fa-save" (click)="salvar()" [disabled]="consultaForm.invalid" />
+        </div>
+    </form>
+</p-dialog>
