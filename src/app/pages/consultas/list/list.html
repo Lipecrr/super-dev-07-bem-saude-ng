@@ -16,11 +16,11 @@
                         dateFormat="dd/mm/yy" >
                     </p-date-picker>
 
-                    <p-select class="w-48" [options]="consultas" optionLabel="profissional"
+                    <p-select class="w-48" [options]="profissionaisFiltro" optionLabel="nome"
                         [(ngModel)]="profissionalSelecionado">
                     </p-select>
 
-                    <p-select class="w-48" [options]="consultas" optionLabel="paciente" [(ngModel)]="pacienteSelecionado">
+                    <p-select class="w-48" [options]="filtrosStatus" [(ngModel)]="statusSelecionado">
                     </p-select>
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <div class="flex flex-col md:col-span-2">
                 <label for="paciente" class="font-semibold w-24">Paciente <span
                         class="font-bold text-red-700">*</span></label>
-                <p-select [options]="consultas" optionLabel="paciente"  formControlName="paciente"
+                <p-select [options]="pacientes" optionLabel="nome" optionValue="id" formControlName="paciente"
                     placeholder="Selecione o paciente">
                 </p-select>
 
@@ -82,7 +82,7 @@
             <div class="flex flex-col md:col-span-2">
                 <label for="profissional" class="font-semibold w-24">Profissional <span
                         class="font-bold text-red-700">*</span></label>
-                <p-select [options]="consultas" optionLabel="profissional" formControlName="profissional"
+                <p-select [options]="profissionais" optionLabel="nome" formControlName="profissional"
                     placeholder="Selecione o profissional">
                 </p-select>
                 @if (consultaForm.get("profissional")?.touched &&
