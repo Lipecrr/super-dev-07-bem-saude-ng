@@ -63,12 +63,12 @@ export class List {
     { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e507', nome: 'Dra. Renata Guimarães' },
     { id: '029e2a1b-1a11-4f2a-9c10-a1b2c3d4e508', nome: 'Dr. Lucas Farias' }
   ]
-profissionaisFiltro: ProfissionalResponseModel[] = [
-  { id: 'todos', nome: 'Todos' },
-  ...this.profissionais
-];
-profissionalSelecionado: ProfissionalResponseModel =
-  this.profissionaisFiltro[0];
+  profissionaisFiltro: ProfissionalResponseModel[] = [
+    { id: 'todos', nome: 'Todos' },
+    ...this.profissionais
+  ];
+  profissionalSelecionado: ProfissionalResponseModel =
+    this.profissionaisFiltro[0];
 
   consultas: ConsultaResponseModel[] = [
     {
@@ -169,20 +169,4 @@ profissionalSelecionado: ProfissionalResponseModel =
   salvar() {
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

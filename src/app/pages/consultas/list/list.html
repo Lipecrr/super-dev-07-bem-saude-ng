@@ -2,7 +2,7 @@
     <div class="flex justify-between">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Consultas</h1>
-            <p class="text-gray-600">Gerenciamento de agendamentos</p>
+            <p class="text-gray-600">Gerenciamento de Agendamentos</p>
         </div>
 
         <p-button label="Novo Paciente" icon="fa fa-plus" (onClick)="showDialog()"></p-button>
@@ -13,7 +13,7 @@
             <div class="bg-white rounded-xl shadow-sm p-4">
                 <div class="flex flex-wrap gap-3 justify-start">
                     <p-date-picker class="w-48" [(ngModel)]="dataSelecionada" placeholder="Todas as datas"
-                        dateFormat="dd/mm/yy" >
+                        dateFormat="dd/mm/yy" [showIcon]="true" icon="fa-regular fa-calendar"> >
                     </p-date-picker>
 
                     <p-select class="w-48" [options]="profissionaisFiltro" optionLabel="nome"
