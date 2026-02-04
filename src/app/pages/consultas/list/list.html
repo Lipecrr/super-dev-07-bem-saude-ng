@@ -10,9 +10,21 @@
 
     <div class="bg-white rounded-xl shadow-sm p-4">
         <div class="flex flex-row gap-4">
-            <input pInputText placeholder="Busca" fluid [(ngModel)]="pesquisa" [pAutoFocus]="true">
+            <div class="bg-white rounded-xl shadow-sm p-4">
+                <div class="flex flex-wrap gap-3 justify-start">
+                    <p-date-picker class="w-48" [(ngModel)]="dataSelecionada" placeholder="Todas as datas"
+                        dateFormat="dd/mm/yy" >
+                    </p-date-picker>
 
-            <p-select [options]="filtros" [(ngModel)]="filtroSelecionado"></p-select>
+                    <p-select class="w-48" [options]="profissionaisFiltro" optionLabel="nome"
+                        [(ngModel)]="profissionalSelecionado">
+                    </p-select>
+
+                    <p-select class="w-48" [options]="filtrosStatus" [(ngModel)]="statusSelecionado">
+                    </p-select>
+                </div>
+            </div>
+
         </div>
     </div>
 
