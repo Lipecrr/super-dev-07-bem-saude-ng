@@ -1,0 +1,85 @@
+<div class="space-y-6 bg-gray-100 min-h-screen p-6">
+    <div class="flex justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">Financeiro</h1>
+            <p class="text-gray-600">Gestão de faturas e pagamentos</p>
+        </div>
+        <p-button label="Nova Fatura" icon="fa fa-plus" (onClick)="showDialog()"></p-button>
+    </div>
+
+    <div class="flex gap-4 px-4">
+        <div class="flex-1 bg-white rounded-xl p-4">
+            <p class="text-gray-600">Em Aberto</p>
+            <div class="flex justify-between items-center">
+                <span class="text-xl font-bold text-yellow-600">{{somarFaturasEmAberto()}}</span>
+                <div class="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded">
+                    <i class="fa-regular fa-clock text-yellow-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 bg-white rounded-xl p-4">
+            <p class="text-gray-600">Recebido Hoje</p>
+            <div class="flex justify-between items-center">
+                <span class="text-xl font-bold text-green-600">{{somarFaturasPagasHoje()}}</span>
+                <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded">
+                    <i class="fa-solid fa-check text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-1 bg-white rounded-xl p-4">
+            <p class="text-gray-600">Total do Mês</p>
+            <div class="flex justify-between items-center">
+                <span class="text-xl font-bold text-blue-600">{{somarFaturasPagasNoMes()}}</span>
+                <div class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded">
+                    <i class="fa-solid fa-dollar-sign text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-4">
+        <div class="flex flex-row gap-4">
+            <input pInputText placeholder="Busca por paciente" fluid [(ngModel)]="pesquisa" [pAutoFocus]="true">
+            <p-select [options]="filtros" [(ngModel)]="filtroSelecionado"></p-select>
+        </div>
+    </div>
+
+    <p-table [value]="faturas" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template #header>
+            <tr>
+                <th>Fatura</th>
+                <th>Paciente</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Status</th>
+                <th>
+                    <div class="text-right">Ações</div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-faturas>
+            <tr>
+                <td>{{ faturas.id }}</td>
+                <td>{{ faturas.paciente }}</td>
+                <td>{{ faturas.data }}</td>
+                <td>{{ faturas.valor }}</td>
+                <td>
+                    <app-registro-status-tag [status]="faturas.status" />
+                </td>
+                <td>
+                    <div class="flex gap-1 justify-end">
+                        <p-button icon="fa-solid fa-money-bills" variant="text" severity="success"
+                            [style.display]="faturas.status !== 'Em Aberto' ? 'none' : 'inline-flex'">
+                        </p-button>
+
+                        <p-button icon="fa-solid fa-print" variant="text" severity="info" [disabled]="faturas.status === 'Cancelada'"/>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
