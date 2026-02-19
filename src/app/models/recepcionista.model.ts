@@ -1,19 +1,19 @@
-export interface RecepcionistaResponseModel{
+export interface RecepcionistaResponseModel {
     id: string;
     nome: string;
-    status: boolean;
+    status: string;
 }
 
 export interface RecepcionistaPesquisaResponseModel{
     id: string;
     nome: string;
-    status: boolean;
+    status: string;
 }
 
-export interface RecepcionistaCriarResponseModel{
+export interface RecepcionistaCriarRequestModel{
     nome: string;
 }
 
-export interface RecepcionistaEditarResponseModel{
+export interface RecepcionistaEditarRequestModel{
     nome: string;
 }

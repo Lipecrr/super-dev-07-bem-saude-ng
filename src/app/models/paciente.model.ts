@@ -1,3 +1,4 @@
+// GET /pacientes
 export interface PacienteResponseModel{
     id: string;
     nome: string;
@@ -6,7 +7,8 @@ export interface PacienteResponseModel{
     status: boolean;
 }
 
-export interface PacienteCriarResponseModel{
+// POST /pacientes
+export interface PacienteCriarRequestModel{
     nome: string;
     cpf: string;
     telefone: string;
@@ -16,7 +18,8 @@ export interface PacienteCriarResponseModel{
     observacoes: string;
 }
 
-export interface PacienteEditarResponseModel{
+// PUT /pacientes/{id}
+export interface PacienteEditarRequestModel{
     nome: string;
     telefone: string;
     endereco: string;
@@ -24,6 +27,7 @@ export interface PacienteEditarResponseModel{
     observacoes: string;
 }
 
+// GET /pacientes/{id}
 export interface PacientePesquisaResponseModel{
     id: string;
     nome: string;
@@ -33,5 +37,5 @@ export interface PacientePesquisaResponseModel{
     email: string;
     data_nascimento: string;
     observacoes: string;
-    status: string;
+    status: boolean;
 }

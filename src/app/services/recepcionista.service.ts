@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RecepcionistaCriarResponseModel, RecepcionistaEditarResponseModel, RecepcionistaPesquisaResponseModel, RecepcionistaResponseModel } from '../models/recepcionista.model';
+import { RecepcionistaCriarRequestModel, RecepcionistaEditarRequestModel, RecepcionistaPesquisaResponseModel, RecepcionistaResponseModel } from '../models/recepcionista.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environment/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,28 +10,36 @@ import { environment } from '../../environment/environment';
 export class RecepcionistaService {
   private httpClient = inject(HttpClient);
 
-  getAll(): Observable<RecepcionistaResponseModel[]>{
+  getAll(): Observable<RecepcionistaResponseModel[]> {
     const url = `${environment.apiUrl}/recepcionistas`;
     return this.httpClient.get<RecepcionistaResponseModel[]>(url);
   }
 
-  create(form: RecepcionistaCriarResponseModel): Observable<RecepcionistaResponseModel>{
+  // 200 => ok com response
+  // 201 => created
+  // 204 => no content
+  create(form: RecepcionistaCriarRequestModel): Observable<RecepcionistaResponseModel> {
     const url = `${environment.apiUrl}/recepcionistas`;
     return this.httpClient.post<RecepcionistaResponseModel>(url, form);
   }
-  
-  update(id: string, form: RecepcionistaEditarResponseModel): Observable<RecepcionistaResponseModel>{
-    const url = `${environment.apiUrl}/recepcionistas${id}`;
-    return this.httpClient.put<RecepcionistaResponseModel>(url, form)
+
+  update(id: string, form: RecepcionistaEditarRequestModel): Observable<RecepcionistaResponseModel> {
+    const url = `${environment.apiUrl}/recepcionistas/${id}`;
+    return this.httpClient.put<RecepcionistaResponseModel>(url, form);
   }
 
-  getById(id: string): Observable<RecepcionistaPesquisaResponseModel>{
+  getById(id: string): Observable<RecepcionistaPesquisaResponseModel> {
     const url = `${environment.apiUrl}/recepcionistas/${id}`;
-    return this.httpClient.get<RecepcionistaPesquisaResponseModel>(url)
+    return this.httpClient.get<RecepcionistaPesquisaResponseModel>(url);
   }
 
   delete(id: string): Observable<void> {
     const url = `${environment.apiUrl}/recepcionistas/${id}`;
     return this.httpClient.delete<void>(url);
+  }
+
+  ativar(id: string): Observable<void> {
+    const url = `${environment.apiUrl}/recepcionistas/${id}/ativar`;
+    return this.httpClient.put<void>(url, {});
   }
 }
